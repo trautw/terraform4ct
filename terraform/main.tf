@@ -75,7 +75,7 @@ resource "azurerm_linux_function_app" "function_app" {
   location                   = var.location
   service_plan_id            = azurerm_service_plan.app_service_plan.id
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "",
+    # "WEBSITE_RUN_FROM_PACKAGE" = "",
     "FUNCTIONS_WORKER_RUNTIME" = "node",
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.application_insights.instrumentation_key,
   }
