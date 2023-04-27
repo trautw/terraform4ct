@@ -13,20 +13,20 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name = "azuretffunc-dev-resource-group"
-    storage_account_name = "azuretffuncdevstorage2"
+    resource_group_name = "terraformTraining"
+    storage_account_name = "storage4terraform4ct"
     container_name = "statefile"
-    key = "terraform.tfstate"
+    key = "terraform-func-dev.tfstate"
   }
 }
 
 resource "azurerm_resource_group" "resource_group" {
-  name = "${var.project}-${var.environment}-resource-group"
+  name = "${var.project}-${var.environment}-rg"
   location = var.location
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  name = "${var.project}${var.environment}storage2"
+  name = "chtw2${var.project}${var.environment}storage"
   resource_group_name = azurerm_resource_group.resource_group.name
   location = var.location
   account_tier = "Standard"
@@ -40,26 +40,6 @@ resource "azurerm_application_insights" "application_insights" {
   application_type    = "Node.JS"
 }
 
-#resource "azurerm_service_plan" "app_service_plan" {
-  #name                = "${var.project}-${var.environment}-app-service-plan"
-  #resource_group_name = azurerm_resource_group.resource_group.name
-  #location            = var.location
-  #kind                = "FunctionApp"
-  #reserved = true # this has to be set to true for Linux. Not related to the Premium Plan
-  #sku {
-    #tier = "Dynamic"
-    #size = "Y1"
-  #}
-#}
-
-resource "azurerm_service_plan" "app_service_plan_premium" {
-  name                = "${var.project}-${var.environment}-premium-service-plan"
-  location    = var.location
-  resource_group_name = azurerm_resource_group.resource_group.name
-  os_type             = "Linux"
-  sku_name            = "P1v2"
-}
-
 resource "azurerm_service_plan" "app_service_plan" {
   name                = "${var.project}-${var.environment}-service-plan"
   location    = var.location
@@ -70,7 +50,7 @@ resource "azurerm_service_plan" "app_service_plan" {
 
 # See also https://github.com/data-platform-hq/terraform-azurerm-function-app-linux/blob/main/main.tf
 resource "azurerm_linux_function_app" "function_app" {
-  name                       = "${var.project}-${var.environment}-function-app2"
+  name                       = "${var.project}-${var.environment}-function-app"
   resource_group_name        = azurerm_resource_group.resource_group.name
   location                   = var.location
   service_plan_id            = azurerm_service_plan.app_service_plan.id

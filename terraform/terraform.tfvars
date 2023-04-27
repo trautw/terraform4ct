@@ -1,5 +1,5 @@
 # terraform/terraform.tfvars
 
-project = "azuretffunc"
+project = "func"
 environment = "dev"
 location = "westeurope"
